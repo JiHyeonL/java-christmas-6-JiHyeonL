@@ -16,13 +16,13 @@ public enum DiscountEvent {
             LocalDate.of(2023, 12, 31),
             1000);
 
-    private final LocalDate eventStartDate;
-    private final LocalDate eventEndDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
     private final int discountCost;
 
-    DiscountEvent(LocalDate eventStartDate, LocalDate eventEndDate, int discountCost) {
-        this.eventStartDate = eventStartDate;
-        this.eventEndDate = eventEndDate;
+    DiscountEvent(LocalDate startDate, LocalDate endDate, int discountCost) {
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.discountCost = discountCost;
     }
 
