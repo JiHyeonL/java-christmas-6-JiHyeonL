@@ -10,17 +10,28 @@ public enum PlannerMessage {
     TITLE_GIVEAWAY_MENU("<증정 메뉴>"),
     TITLE_BENEFIT_DETAIL("<혜택 내역>"),
     TITLE_BENEFIT_AMOUNT("<총혜택 금액>"),
-    OUTPUT_BENEFIT_AMOUNT("%,d원"),
     TITLE_EXPECTED_PAYMENT("<할인 후 예상 결제 금액>"),
     TITLE_EVENT_BADGE("<12월 이벤트 배지>"),
-    OUTPUT_MENU_COUNT("%s %d개"),
-    OUTPUT_COST("%,d원"),
+    OUTPUT_ORDER("%s %d개"),
+    OUTPUT_PRICE("%,d원"),
     OUTPUT_EVENT_DETAIL("%s: %d원");
 
     private final String message;
 
     PlannerMessage(String message) {
         this.message = message;
+    }
+
+    public void printOrder(String menu, int count) {
+        System.out.println(String.format(OUTPUT_ORDER.message, menu, count));
+    }
+
+    public void printPrice(int price) {
+        System.out.println(String.format(OUTPUT_PRICE.message, price));
+    }
+
+    public void printEventDetail(String menu, int count) {
+        System.out.println(String.format(OUTPUT_EVENT_DETAIL.message, menu, count));
     }
 
     public void printMessage() {
