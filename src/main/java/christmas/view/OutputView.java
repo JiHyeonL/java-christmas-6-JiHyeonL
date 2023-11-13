@@ -1,15 +1,18 @@
 package christmas.view;
 
 import christmas.constant.PlannerMessage;
+import christmas.domain.Order;
 
-import static christmas.constant.PlannerMessage.ANNOUNCE_WELCOME;
 
 public class OutputView {
-    public static void printWelcome() {
-        ANNOUNCE_WELCOME.printMessage();
+    public void printWelcome() {
+        PlannerMessage.ANNOUNCE_WELCOME.printMessage();
     }
-    public static void printMenu() {
-        System.out.println("<주문 메뉴>");
-        // ...
+
+    public void printAnnounceEventBenefit() {
+        PlannerMessage.ANNOUNCE_EVENT_BENEFIT.printMessage();
+    }
+    public void printMenu(Order order) {
+        order.printOrder();
     }
 }
