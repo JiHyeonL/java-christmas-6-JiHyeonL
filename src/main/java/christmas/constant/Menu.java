@@ -75,8 +75,8 @@ public enum Menu {
         return result;
     }
 
-//    public static int calculateOrderAmount() {
-//
-//    }
+    public static int calculateOrderPriceByMenu(Menu menu, int count) {
+        return menu.price * count;
+    }
 
 }
