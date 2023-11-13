@@ -5,7 +5,7 @@ import christmas.constant.ErrorMessage;
 public class VisitDate {
     private final int date;
 
-    VisitDate(int date) {
+    public VisitDate(int date) {
         validate(date);
         this.date = date;
     }
@@ -15,8 +15,8 @@ public class VisitDate {
     }
 
     private void checkInRange(int date) {
-        if (date < 1 && date > 31) {
-            ErrorMessage.DATE.throwErrorWithMessage();
+        if (date < 1 || date > 31) {
+            throw new IllegalArgumentException(ErrorMessage.DATE.errorMessage());
         }
     }
 }
