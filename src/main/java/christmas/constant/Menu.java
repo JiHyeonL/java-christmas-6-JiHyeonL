@@ -29,6 +29,10 @@ public enum Menu {
         this.price = price;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static boolean isInMenu(String dishName) {
         for (Menu menu : Menu.values()) {
             if (menu.name.equals(dishName)) {
