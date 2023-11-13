@@ -1,10 +1,12 @@
 package christmas.constant;
 
+import java.util.Map;
+
 public enum PlannerMessage {
     ANNOUNCE_WELCOME("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다."),
     REQUEST_VISIT_DATE("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)"),
     REQUEST_MENU_ORDER("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)"),
-    ANNOUNCE_EVENT_BENEFIT("12월 26일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!"),
+    ANNOUNCE_EVENT_BENEFIT("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!"),
     TITLE_MENU_ORDER("\n<주문 메뉴>"),
     TITLE_BEFORE_DISCOUNT_AMOUNT("\n<할인 전 총주문 금액>"),
     TITLE_GIVEAWAY_MENU("\n<증정 메뉴>"),
@@ -22,20 +24,26 @@ public enum PlannerMessage {
         this.message = message;
     }
 
-    public static void printOrderMenu(Menu menu, int count) {
-        System.out.println(String.format(OUTPUT_ORDER.message, menu.getName(), count));
+    public static String makeAnnounceEventBenefitDetail(int date) {
+        return String.format(ANNOUNCE_EVENT_BENEFIT.message, date);
+    }
+    public static String makeMenuFormat(Menu menu, int count) {
+        return String.format(OUTPUT_ORDER.message, menu.getName(), count);
     }
 
-    public void printPrice(int price) {
-        System.out.println(String.format(OUTPUT_PRICE.message, price));
+    public static String makeOrderOutputDetail(String orderFormat) {
+        return TITLE_MENU_ORDER.message + "\n" + orderFormat;
     }
 
-    public void printEventDetail(String menu, int count) {
-        System.out.println(String.format(OUTPUT_EVENT_DETAIL.message, menu, count));
+    public static String makeBeforeDiscountAmountDetail(int price) {
+        return TITLE_BEFORE_DISCOUNT_AMOUNT.message
+                + "\n" + String.format(OUTPUT_PRICE.message, price);
     }
+
 
     public void printMessage() {
         System.out.println(message);
     }
+
 
 }
