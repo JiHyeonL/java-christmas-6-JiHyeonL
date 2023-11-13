@@ -8,19 +8,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InputView {
-    public static int readDate() {
+    public int readDate() {
         PlannerMessage.REQUEST_VISIT_DATE.printMessage();
         String rawDate = Console.readLine();
         return parseStringToInt(rawDate);
     }
 
-    public static List<String> readOrder() {
+    public List<String> readOrder() {
         PlannerMessage.REQUEST_MENU_ORDER.printMessage();
         String rawOrder = Console.readLine();
         return parseStringToList(rawOrder);
     }
 
-    private static int parseStringToInt(String rawDate) {
+    private int parseStringToInt(String rawDate) {
         try {
             return Integer.parseInt(rawDate);
         } catch (NumberFormatException e) {
@@ -30,7 +30,7 @@ public class InputView {
         }
     }
 
-    private static List<String> parseStringToList(String rawOrder) {
+    private List<String> parseStringToList(String rawOrder) {
         try {
             if (rawOrder.endsWith(",")) {
                 throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
