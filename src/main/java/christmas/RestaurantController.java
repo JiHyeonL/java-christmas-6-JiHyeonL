@@ -14,12 +14,13 @@ public class RestaurantController {
     private Order order;
 
     public void runPlanner() {
-        outputView.printWelcome();
+        outputView.writeWelcome();
         inputDateRetryHandler();
         inputOrderRetryHandler();
-        outputView.printAnnounceEventBenefit();
+        outputView.writeAnnounceEventBenefit(visitDate);
 
-        outputView.printOrder(order);
+        outputView.writeOrder(order.OrderOutputFormat());
+        outputView.writeBeforeDiscountAmount(order.calculateAmount());
     }
 
     private void inputDateRetryHandler() {
