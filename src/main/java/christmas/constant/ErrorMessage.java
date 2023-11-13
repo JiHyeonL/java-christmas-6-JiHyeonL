@@ -1,5 +1,7 @@
 package christmas.constant;
 
+import org.w3c.dom.ls.LSOutput;
+
 public enum ErrorMessage {
     PREFIX("[ERROR]"),
     DATE("유효하지 않은 날짜입니다. 다시 입력해 주세요."),
@@ -11,7 +13,7 @@ public enum ErrorMessage {
         this.message = message;
     }
 
-    public String generateErrorMessage() {
-        return PREFIX.message + this.message;
+    public String errorMessage(){
+        return PREFIX.message + " " + this.message;
     }
 }
