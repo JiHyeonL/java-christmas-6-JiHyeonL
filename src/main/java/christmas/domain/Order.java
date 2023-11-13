@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.constant.ErrorMessage;
 import christmas.constant.Menu;
+import christmas.constant.PlannerMessage;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,21 +17,22 @@ public class Order {
         this.details = parseStringNameToMenu(validOrder);
     }
 
+    public void printOrder() {
+        PlannerMessage.TITLE_MENU_ORDER.printMessage();
+
+        for (Map.Entry<Menu, Integer> order : details.entrySet()) {
+            PlannerMessage.printOrderMenu(order.getKey(), order.getValue());
+        }
+    }
+
     private Map<String, Integer> validateAndParseMap(List<String> order) {
         Map<String, Integer> orderDetail = parseStringToMapWithCheckDuplicate(order);
-        System.out.println("파싱");
         checkInMenu(orderDetail);
-        System.out.println("메뉴 체크");
         checkOrderGreaterThanOne(orderDetail);
-        System.out.println("메뉴 0개");
         checkOrderCountMaxLimit(orderDetail);
-        System.out.println("메뉴 20개 이하");
         checkOrderMenuOnlyBeverage(orderDetail);
-        System.out.println("메뉴 음료밖에 없음");
         checkCountGreaterThanOne(orderDetail);
-        System.out.println("메뉴 0개");
 
-        orderDetail.forEach((key, value) -> System.out.println("Key: " + key + ", Value: " + value));
         return orderDetail;
     }
 
@@ -43,7 +45,6 @@ public class Order {
             String count = checkNotNull(menuAndCount.get(1));
 
             if (orderDetail.containsKey(menu)) {
-                System.out.println("중복메뉴");
                 throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
             }
             orderDetail.put(menu, parseStringToInt(count));
@@ -57,12 +58,10 @@ public class Order {
         try {
             parseDetail = Arrays.asList(detail.split("-"));
             if (parseDetail.size() != 2) {
-                System.out.println("파싱-2개 아님"+parseDetail.toString());
                 throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
             }
             return parseDetail;
         } catch (NullPointerException e) {
-            System.out.println("파싱-null 에러");
             throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
         }
     }
