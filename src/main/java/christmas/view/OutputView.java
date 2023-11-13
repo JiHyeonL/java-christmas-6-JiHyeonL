@@ -12,7 +12,7 @@ public class OutputView {
     public void printAnnounceEventBenefit() {
         PlannerMessage.ANNOUNCE_EVENT_BENEFIT.printMessage();
     }
-    public void printMenu(Order order) {
+    public void printOrder(Order order) {
         order.printOrder();
     }
 }
