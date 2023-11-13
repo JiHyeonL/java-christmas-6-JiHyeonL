@@ -2,17 +2,24 @@ package christmas.view;
 
 import christmas.constant.PlannerMessage;
 import christmas.domain.Order;
+import christmas.domain.VisitDate;
 
 
 public class OutputView {
-    public void printWelcome() {
+    public void writeWelcome() {
         PlannerMessage.ANNOUNCE_WELCOME.printMessage();
     }
 
-    public void printAnnounceEventBenefit() {
-        PlannerMessage.ANNOUNCE_EVENT_BENEFIT.printMessage();
+    public void writeAnnounceEventBenefit(VisitDate visitDate) {
+        System.out.println(visitDate.announceEventBenefitWithDate());
     }
-    public void printOrder(Order order) {
-        order.printOrder();
+
+    public void writeOrder(String order) {
+        System.out.println(PlannerMessage.makeOrderOutputDetail(order));
     }
+
+    public void writeBeforeDiscountAmount(int cost) {
+        System.out.println(PlannerMessage.makeBeforeDiscountAmountDetail(cost));
+    }
+
 }
