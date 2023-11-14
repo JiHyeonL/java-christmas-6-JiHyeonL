@@ -1,7 +1,12 @@
 package christmas.domain;
 
+import christmas.constant.DiscountEvent;
 import christmas.constant.ErrorMessage;
 import christmas.constant.PlannerMessage;
+import christmas.dto.CalculateEventDto;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class VisitDate {
     private final int date;
@@ -13,6 +18,18 @@ public class VisitDate {
 
     public String announceEventBenefitWithDate() {
         return PlannerMessage.makeAnnounceEventBenefitDetail(date);
+    }
+
+    public Map<DiscountEvent, Integer> getCalculatedDiscount(CalculateEventDto eventParameter) {
+        Map<DiscountEvent, Integer> result = new HashMap<>();
+        eventParameter.setDate(date);
+
+        for (DiscountEvent event : DiscountEvent.values()) {
+            int price = event.calculateDiscountAmount(eventParameter);
+            result.put(event, price);
+        }
+
+        return result;
     }
 
     private void validate(int date) {
