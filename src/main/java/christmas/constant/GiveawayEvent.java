@@ -20,4 +20,14 @@ public enum GiveawayEvent {
         this.minimumOrderAmount = minimumOrderAmount;
     }
 
+    public boolean canReceiveGift(int beforeDiscountAmount) {
+        if (beforeDiscountAmount >= minimumOrderAmount) {
+            return true;
+        }
+        return false;
+    }
+
+    public String getGift() {
+        return gift;
+    }
 }
