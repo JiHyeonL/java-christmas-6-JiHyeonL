@@ -74,7 +74,7 @@ public enum DiscountEvent {
             return 0;
         }
         private boolean isCanDiscountSpecialEvent(int date) {
-            List<Integer> starDate = List.of(10, 17, 24, 25, 31);
+            List<Integer> starDate = List.of(3, 10, 17, 24, 25, 31);
             if (starDate.contains(date)) {
                 return true;
             }
@@ -100,4 +100,8 @@ public enum DiscountEvent {
     }
 
     public abstract int calculateDiscountAmount(CalculateEventDto eventParameter);
+
+    public String getName() {
+        return name;
+    }
 }
