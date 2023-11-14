@@ -16,7 +16,8 @@ public enum PlannerMessage {
     TITLE_EVENT_BADGE("\n<12월 이벤트 배지>"),
     OUTPUT_ORDER("%s %d개"),
     OUTPUT_PRICE("%,d원"),
-    OUTPUT_EVENT_DETAIL("%s: %d원");
+    OUTPUT_EVENT_DETAIL("%s: %d원"),
+    OUTPUT_NO_EVENT("없음");
 
     private final String message;
 
@@ -38,6 +39,15 @@ public enum PlannerMessage {
     public static String makeBeforeDiscountAmountDetail(int price) {
         return TITLE_BEFORE_DISCOUNT_AMOUNT.message
                 + "\n" + String.format(OUTPUT_PRICE.message, price);
+    }
+
+    public static String makeGiveAwayMenuDetail(boolean isEventActive, String giveawayEvent) {
+        String eventResult = OUTPUT_NO_EVENT.message;
+        if (isEventActive == true) {
+            eventResult = String.format(OUTPUT_ORDER.message, giveawayEvent, 1);
+        }
+        return TITLE_GIVEAWAY_MENU.message
+                + "\n" + eventResult;
     }
 
 
