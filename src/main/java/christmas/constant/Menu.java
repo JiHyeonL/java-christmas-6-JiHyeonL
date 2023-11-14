@@ -29,10 +29,6 @@ public enum Menu {
         this.price = price;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public static boolean isInMenu(String dishName) {
         for (Menu menu : Menu.values()) {
             if (menu.name.equals(dishName)) {
@@ -77,6 +73,18 @@ public enum Menu {
 
     public static int calculateOrderPriceByMenu(Menu menu, int count) {
         return menu.price * count;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }
