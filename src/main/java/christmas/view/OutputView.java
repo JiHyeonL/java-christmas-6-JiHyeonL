@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.constant.GiveawayEvent;
 import christmas.constant.PlannerMessage;
 import christmas.domain.Order;
 import christmas.domain.VisitDate;
@@ -18,8 +19,12 @@ public class OutputView {
         System.out.println(PlannerMessage.makeOrderOutputDetail(order));
     }
 
-    public void writeBeforeDiscountAmount(int cost) {
-        System.out.println(PlannerMessage.makeBeforeDiscountAmountDetail(cost));
+    public void writeBeforeDiscountAmount(int amount) {
+        System.out.println(PlannerMessage.makeBeforeDiscountAmountDetail(amount));
+    }
+
+    public void writeGiveAwayMenu(boolean isEventActive, String giveawayEvent) {
+        System.out.println(PlannerMessage.makeGiveAwayMenuDetail(isEventActive, giveawayEvent));
     }
 
 }
