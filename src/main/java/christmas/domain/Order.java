@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.constant.Category;
 import christmas.constant.ErrorMessage;
 import christmas.constant.Menu;
 import christmas.constant.PlannerMessage;
@@ -34,6 +35,17 @@ public class Order {
         }
 
         return amount;
+    }
+
+    public int countByCategory(Category category) {
+        int allCount = 0;
+        for (Map.Entry<Menu, Integer> order : details.entrySet()) {
+            if (order.getKey().getCategory().equals(category)) {
+                allCount += order.getValue();
+            }
+        }
+
+        return allCount;
     }
 
     private Map<String, Integer> validateAndParseMap(List<String> order) {
