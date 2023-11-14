@@ -1,5 +1,7 @@
 package christmas.constant;
 
+import christmas.dto.DiscountDetails;
+
 import java.util.Map;
 
 public enum PlannerMessage {
@@ -11,12 +13,12 @@ public enum PlannerMessage {
     TITLE_BEFORE_DISCOUNT_AMOUNT("\n<할인 전 총주문 금액>"),
     TITLE_GIVEAWAY_MENU("\n<증정 메뉴>"),
     TITLE_BENEFIT_DETAIL("\n<혜택 내역>"),
-    TITLE_BENEFIT_AMOUNT("\n<총혜택 금액>"),
+    TITLE_TOTAL_BENEFIT("\n<총혜택 금액>"),
     TITLE_EXPECTED_PAYMENT("\n<할인 후 예상 결제 금액>"),
     TITLE_EVENT_BADGE("\n<12월 이벤트 배지>"),
     OUTPUT_ORDER("%s %d개"),
     OUTPUT_PRICE("%,d원"),
-    OUTPUT_EVENT_DETAIL("%s: %d원"),
+    OUTPUT_EVENT_DETAIL("%s: %,d원"),
     OUTPUT_NO_EVENT("없음");
 
     private final String message;
@@ -41,19 +43,46 @@ public enum PlannerMessage {
                 + "\n" + String.format(OUTPUT_PRICE.message, price);
     }
 
-    public static String makeGiveAwayMenuDetail(boolean isEventActive, String giveawayEvent) {
+    public static String makeGiveawayMenuDetail(int giveawayPrice) {
         String eventResult = OUTPUT_NO_EVENT.message;
-        if (isEventActive == true) {
-            eventResult = String.format(OUTPUT_ORDER.message, giveawayEvent, 1);
+        if (giveawayPrice != 0) {
+            eventResult = String.format(OUTPUT_ORDER.message, Menu.CHAMPAGNE.getName(), 1);
         }
         return TITLE_GIVEAWAY_MENU.message
                 + "\n" + eventResult;
     }
 
+    public static String makeEventBenefitFormat(DiscountEvent event, int price ) {
+        return String.format(OUTPUT_EVENT_DETAIL.message, event.getName(), price);
+    }
+
+    public static String makeEventBenefitDetail(String event) {
+        return TITLE_BENEFIT_DETAIL.message
+                + "\n" + event;
+    }
+
+    public static String makeTotalBenefitDetail(int price) {
+        return TITLE_TOTAL_BENEFIT.message
+                + "\n" + String.format(OUTPUT_PRICE.message, price);
+    }
+
+    public static String makeExpectedPaymentDetail(int beforeDiscountAmount, int totalBenefit) {
+        return TITLE_EXPECTED_PAYMENT.message
+                + "\n" + String.format(OUTPUT_PRICE.message,
+                beforeDiscountAmount + totalBenefit);
+    }
+
+    public static String makeEventBadgeDetail(String badgeResult) {
+        return TITLE_EVENT_BADGE.message
+                + "\n" + badgeResult;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 
     public void printMessage() {
         System.out.println(message);
     }
-
 
 }
