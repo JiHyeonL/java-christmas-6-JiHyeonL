@@ -1,20 +1,23 @@
 package christmas;
 
-import christmas.constant.GiveawayEvent;
-import christmas.constant.PlannerMessage;
+import christmas.constant.*;
 import christmas.domain.Order;
 import christmas.domain.VisitDate;
+import christmas.dto.CalculateEventDto;
+import christmas.dto.DiscountDetails;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
 import java.util.List;
+import java.util.Map;
 
 public class RestaurantController {
     private InputView inputView = new InputView();
     private OutputView outputView = new OutputView();
     private VisitDate visitDate;
     private Order order;
-    private int beforeDiscountAmount;
+    private CalculateEventDto calculateEventDto;
+    private DiscountDetails discountDetails;
 
     public void runPlanner() {
         outputView.writeWelcome();
@@ -24,8 +27,8 @@ public class RestaurantController {
 
         outputView.writeOrder(order.OrderOutputFormat());
 
-        beforeDiscountAmount = order.calculateAmount();
-        outputView.writeBeforeDiscountAmount(beforeDiscountAmount);
+        calculateEventDto = new CalculateEventDto(order.calculateAmount());
+        outputView.writeBeforeDiscountAmount(calculateEventDto.getBeforeDiscountAmount());
 
         allEventOutputHandler();
     }
@@ -55,15 +58,24 @@ public class RestaurantController {
     }
 
     private void allEventOutputHandler() {
-        boolean isGiveAway = false;
-        boolean isEvent = false;
+        int dessertCount = order.countByCategory(Category.DESSERT);
+        int mainCount = order.countByCategory(Category.MAIN);
+        calculateEventDto.setDessertCount(dessertCount);
+        calculateEventDto.setMainCount(mainCount);
 
-        if (beforeDiscountAmount >= 10000) {
-            isGiveAway = GiveawayEvent.CHAMPAGNE.canReceiveGift(beforeDiscountAmount);
-
+        if (calculateEventDto.getBeforeDiscountAmount() >= 10000) {
+            Map<DiscountEvent, Integer> discountResult =
+                    visitDate.getCalculatedDiscount(calculateEventDto);
+            discountDetails = new DiscountDetails(discountResult);
         }
-        outputView.writeGiveAwayMenu(isGiveAway, GiveawayEvent.CHAMPAGNE.getGift());
 
+        int giveawayPrice = discountDetails.findDiscountPriceByEvent(DiscountEvent.GIVEAWAY);
+        outputView.writeGiveAwayMenu(giveawayPrice);
+
+        //outputView.writeEventBenefit();
+    }
+
+    private void setDiscountDetails() {
 
     }
 
