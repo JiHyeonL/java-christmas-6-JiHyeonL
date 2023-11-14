@@ -18,6 +18,7 @@ public class RestaurantController {
     private Order order;
     private CalculateEventDto calculateEventDto;
     private DiscountDetails discountDetails;
+    private EventBadge eventBadge;
 
     public void runPlanner() {
         outputView.writeWelcome();
@@ -69,14 +70,24 @@ public class RestaurantController {
             discountDetails = new DiscountDetails(discountResult);
         }
 
+        Map<DiscountEvent, Integer> discountResult =
+                visitDate.getCalculatedDiscount(calculateEventDto);
+        discountDetails = new DiscountDetails(discountResult);
+
         int giveawayPrice = discountDetails.findDiscountPriceByEvent(DiscountEvent.GIVEAWAY);
         outputView.writeGiveAwayMenu(giveawayPrice);
 
-        //outputView.writeEventBenefit();
-    }
+        String event = discountDetails.makeEventBenefitDetail();
+        outputView.writeEventBenefit(event);
 
-    private void setDiscountDetails() {
+        int totalBenefit = discountDetails.calculateTotalBenefit();
+        outputView.writeTotalBenefit(totalBenefit);
 
+        int benefitForExpectedPayment = discountDetails.calculateBenefitForExpectedPayment();
+        outputView.writeExpectedPayment(calculateEventDto.getBeforeDiscountAmount(), benefitForExpectedPayment);
+
+        String badge = eventBadge.chooseBadgeNameByBenefit(totalBenefit);
+        outputView.writeEventBadge(badge);
     }
 
 }
