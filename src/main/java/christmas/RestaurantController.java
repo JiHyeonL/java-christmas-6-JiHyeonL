@@ -1,5 +1,7 @@
 package christmas;
 
+import christmas.constant.GiveawayEvent;
+import christmas.constant.PlannerMessage;
 import christmas.domain.Order;
 import christmas.domain.VisitDate;
 import christmas.view.InputView;
@@ -12,18 +14,23 @@ public class RestaurantController {
     private OutputView outputView = new OutputView();
     private VisitDate visitDate;
     private Order order;
+    private int beforeDiscountAmount;
 
     public void runPlanner() {
         outputView.writeWelcome();
-        inputDateRetryHandler();
-        inputOrderRetryHandler();
+        dateInputRetryHandler();
+        orderInputRetryHandler();
         outputView.writeAnnounceEventBenefit(visitDate);
 
         outputView.writeOrder(order.OrderOutputFormat());
-        outputView.writeBeforeDiscountAmount(order.calculateAmount());
+
+        beforeDiscountAmount = order.calculateAmount();
+        outputView.writeBeforeDiscountAmount(beforeDiscountAmount);
+
+        allEventOutputHandler();
     }
 
-    private void inputDateRetryHandler() {
+    private void dateInputRetryHandler() {
         while (true) {
             try {
                 int rawDate = inputView.readDate();
@@ -35,7 +42,7 @@ public class RestaurantController {
         }
     }
 
-    private void inputOrderRetryHandler() {
+    private void orderInputRetryHandler() {
         while (true) {
             try {
                 List<String> rawOrder = inputView.readOrder();
@@ -45,6 +52,19 @@ public class RestaurantController {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void allEventOutputHandler() {
+        boolean isGiveAway = false;
+        boolean isEvent = false;
+
+        if (beforeDiscountAmount >= 10000) {
+            isGiveAway = GiveawayEvent.CHAMPAGNE.canReceiveGift(beforeDiscountAmount);
+
+        }
+        outputView.writeGiveAwayMenu(isGiveAway, GiveawayEvent.CHAMPAGNE.getGift());
+
+
     }
 
 }
