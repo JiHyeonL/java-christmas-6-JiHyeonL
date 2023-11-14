@@ -1,9 +1,13 @@
 package christmas.view;
 
+import christmas.constant.DiscountEvent;
 import christmas.constant.GiveawayEvent;
 import christmas.constant.PlannerMessage;
 import christmas.domain.Order;
 import christmas.domain.VisitDate;
+import christmas.dto.DiscountDetails;
+
+import java.sql.SQLOutput;
 
 
 public class OutputView {
@@ -23,8 +27,23 @@ public class OutputView {
         System.out.println(PlannerMessage.makeBeforeDiscountAmountDetail(amount));
     }
 
-    public void writeGiveAwayMenu(boolean isEventActive, String giveawayEvent) {
-        System.out.println(PlannerMessage.makeGiveAwayMenuDetail(isEventActive, giveawayEvent));
+    public void writeGiveAwayMenu(int price) {
+        System.out.println(PlannerMessage.makeGiveawayMenuDetail(price));
     }
 
+    public void writeEventBenefit(String event) {
+        System.out.println(PlannerMessage.makeEventBenefitDetail(event));
+    }
+
+    public void writeTotalBenefit(int discountPrice) {
+        System.out.println(PlannerMessage.makeTotalBenefitDetail(discountPrice));
+    }
+
+    public void writeExpectedPayment(int beforeDiscountAmount, int totalBenefit) {
+        System.out.println(PlannerMessage.makeExpectedPaymentDetail(beforeDiscountAmount, totalBenefit));
+    }
+
+    public void writeEventBadge(String badgeResult) {
+        System.out.println(PlannerMessage.makeEventBadgeDetail(badgeResult));
+    }
 }
