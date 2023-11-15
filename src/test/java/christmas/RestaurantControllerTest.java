@@ -5,10 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class RestaurantControllerTest extends NsTest {
-    private static final String LINE_SEPARATOR = System.lineSeparator();
 
     @Test
     void 이벤트_비활성화_출력() {
