@@ -20,8 +20,7 @@ public class Order {
     public String OrderOutputFormat() {
         StringBuilder menu = new StringBuilder();
         for (Map.Entry<Menu, Integer> order : details.entrySet()) {
-            menu.append(PlannerMessage.makeMenuFormat(order.getKey(), order.getValue()))
-                    .append("\n");
+            menu.append(PlannerMessage.makeMenuFormat(order.getKey(), order.getValue()));
         }
         menu.deleteCharAt(menu.length() - 1);
 
