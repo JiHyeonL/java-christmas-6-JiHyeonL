@@ -1,4 +1,4 @@
-package christmas.dto;
+package christmas.domain;
 
 import christmas.constant.DiscountEvent;
 import christmas.constant.PlannerMessage;
@@ -6,7 +6,7 @@ import christmas.constant.PlannerMessage;
 import java.util.Map;
 
 public class DiscountDetails {
-    private Map<DiscountEvent, Integer> discountAmount;
+    private final Map<DiscountEvent, Integer> discountAmount;
 
     public DiscountDetails(Map<DiscountEvent, Integer> discountAmount) {
         this.discountAmount = discountAmount;
@@ -20,13 +20,13 @@ public class DiscountDetails {
         StringBuilder eventFormat = new StringBuilder();
         for (Map.Entry<DiscountEvent, Integer> event : discountAmount.entrySet()) {
             if (event.getValue() != 0) {
-                eventFormat.append(PlannerMessage.makeEventBenefitFormat(event.getKey(), event.getValue()))
-                        .append("\n");
+                eventFormat.append(PlannerMessage.makeEventBenefitFormat(event.getKey(), event.getValue()));
             }
         }
         if (eventFormat.length() == 0) {
             return PlannerMessage.OUTPUT_NO_EVENT.getMessage();
         }
+
 
         eventFormat.deleteCharAt(eventFormat.length() - 1);
         return eventFormat.toString();
