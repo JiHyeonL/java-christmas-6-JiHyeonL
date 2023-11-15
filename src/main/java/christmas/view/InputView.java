@@ -40,7 +40,4 @@ public class InputView {
             throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
         }
     }
-
-
-
 }
