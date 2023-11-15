@@ -1,14 +1,7 @@
 package christmas.view;
 
-import christmas.constant.DiscountEvent;
-import christmas.constant.GiveawayEvent;
 import christmas.constant.PlannerMessage;
-import christmas.domain.Order;
 import christmas.domain.VisitDate;
-import christmas.dto.DiscountDetails;
-
-import java.sql.SQLOutput;
-
 
 public class OutputView {
     public void writeWelcome() {
