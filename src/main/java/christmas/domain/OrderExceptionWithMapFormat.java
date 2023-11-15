@@ -1,6 +1,7 @@
 package christmas.domain;
 
 import christmas.constant.ErrorMessage;
+import christmas.constant.MagicNumber;
 import christmas.constant.Menu;
 
 import java.util.Arrays;
@@ -47,7 +48,7 @@ public class OrderExceptionWithMapFormat {
         List<String> parseDetail;
         try {
             parseDetail = Arrays.asList(detail.split("-"));
-            if (parseDetail.size() != 2) {
+            if (parseDetail.size() != MagicNumber.ORDER_ELEMENT_COUNT.getNumber()) {
                 throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
             }
             return parseDetail;
@@ -90,7 +91,7 @@ public class OrderExceptionWithMapFormat {
             countSum += count;
         }
 
-        if (countSum > 20) {
+        if (countSum > MagicNumber.MAX_ORDER_COUNT.getNumber()) {
             throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
         }
     }
