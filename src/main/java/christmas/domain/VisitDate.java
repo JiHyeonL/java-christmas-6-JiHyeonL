@@ -2,6 +2,7 @@ package christmas.domain;
 
 import christmas.constant.DiscountEvent;
 import christmas.constant.ErrorMessage;
+import christmas.constant.MagicNumber;
 import christmas.constant.PlannerMessage;
 import christmas.dto.CalculateEventDto;
 
@@ -37,7 +38,7 @@ public class VisitDate {
     }
 
     private void checkInRange(int date) {
-        if (date < 1 || date > 31) {
+        if (date < MagicNumber.MIN_DATE.getNumber() || date > MagicNumber.MAX_DATE.getNumber()) {
             throw new IllegalArgumentException(ErrorMessage.DATE.errorMessage());
         }
     }
