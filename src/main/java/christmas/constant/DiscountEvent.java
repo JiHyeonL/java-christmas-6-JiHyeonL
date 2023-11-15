@@ -12,6 +12,9 @@ public enum DiscountEvent {
             LocalDate.of(2023, 12, 25)) {
         @Override
         public int calculateDiscountAmount(CalculateEventDto eventParameter) {
+            if (!eventParameter.getIsEventActive()) {
+                return 0;
+            }
             if (isCanDiscountChristmasEvent(eventParameter.getDate())) {
                 return -1000 + -100 * (eventParameter.getDate() - 1);
             }
@@ -27,6 +30,9 @@ public enum DiscountEvent {
             LocalDate.of(2023, 12, 31)) {
         @Override
         public int calculateDiscountAmount(CalculateEventDto eventParameter) {
+            if (!eventParameter.getIsEventActive()) {
+                return 0;
+            }
             if (isCanDiscountWeekdayEvent(eventParameter.getDate()))
                 return eventParameter.getDessertCount() * -2023;
             return 0;
@@ -46,6 +52,9 @@ public enum DiscountEvent {
             LocalDate.of(2023, 12, 31)) {
         @Override
         public int calculateDiscountAmount(CalculateEventDto eventParameter) {
+            if (!eventParameter.getIsEventActive()) {
+                return 0;
+            }
             if (isCanDiscountWeekendEvent(eventParameter.getDate())) {
                 return eventParameter.getMainCount() * -2023;
             }
@@ -68,6 +77,9 @@ public enum DiscountEvent {
             LocalDate.of(2023, 12, 31)) {
         @Override
         public int calculateDiscountAmount(CalculateEventDto eventParameter) {
+            if (!eventParameter.getIsEventActive()) {
+                return 0;
+            }
             if (isCanDiscountSpecialEvent(eventParameter.getDate())) {
                 return -1000;
             }
@@ -86,6 +98,9 @@ public enum DiscountEvent {
            LocalDate.of(2023, 12, 31)) {
        @Override
        public int calculateDiscountAmount(CalculateEventDto eventParameter) {
+           if (!eventParameter.getIsEventActive()) {
+               return 0;
+           }
            return GiveawayEvent.CHAMPAGNE.calculateGiveawayAmount(eventParameter.getBeforeDiscountAmount());
        }
    };
