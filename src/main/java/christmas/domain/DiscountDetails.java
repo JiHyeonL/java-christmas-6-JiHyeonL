@@ -23,10 +23,9 @@ public class DiscountDetails {
                 eventFormat.append(PlannerMessage.makeEventBenefitFormat(event.getKey(), event.getValue()));
             }
         }
-        if (eventFormat.length() == 0) {
+        if (eventFormat.isEmpty()) {
             return PlannerMessage.OUTPUT_NO_EVENT.getMessage();
         }
-
 
         eventFormat.deleteCharAt(eventFormat.length() - 1);
         return eventFormat.toString();
