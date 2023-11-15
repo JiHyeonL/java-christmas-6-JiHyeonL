@@ -17,6 +17,7 @@ class VisitDateTest {
         CalculateEventDto eventParameter = new CalculateEventDto(11500);
         eventParameter.setDessertCount(0);
         eventParameter.setMainCount(0);
+        eventParameter.setIsEventActive(true);
         visitDate = new VisitDate(21);
 
         Map<DiscountEvent, Integer> result = visitDate.getCalculatedDiscount(eventParameter);
