@@ -23,9 +23,7 @@ public class InputView {
     private int parseStringToInt(String rawDate) {
         try {
             return Integer.parseInt(rawDate);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ErrorMessage.DATE.errorMessage());
-        } catch (NullPointerException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             throw new IllegalArgumentException(ErrorMessage.DATE.errorMessage());
         }
     }

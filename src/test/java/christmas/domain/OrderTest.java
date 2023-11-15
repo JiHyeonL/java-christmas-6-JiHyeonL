@@ -11,8 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class OrderTest {
     private Order order;
 
-
-
     @Test
     void 주문결과_출력문자열() {
         List<String> orderList = List.of("초코케이크-1","크리스마스파스타-3");
