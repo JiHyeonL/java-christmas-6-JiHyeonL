@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 public class RestaurantController {
-    private InputView inputView = new InputView();
-    private OutputView outputView = new OutputView();
+    private final InputView inputView = new InputView();
+    private final OutputView outputView = new OutputView();
     private VisitDate visitDate;
     private Order order;
     private CalculateEventDto calculateEventDto;
@@ -30,6 +30,7 @@ public class RestaurantController {
         calculateEventDto = new CalculateEventDto(order.calculateAmount());
         outputView.writeBeforeDiscountAmount(calculateEventDto.getBeforeDiscountAmount());
 
+        setEventCalculate();
         allEventOutputHandler();
     }
 
@@ -57,14 +58,14 @@ public class RestaurantController {
         }
     }
 
-    private void allEventOutputHandler() {
+    private void setEventCalculate() {
         boolean isEventActive = true;
         int dessertCount = order.countByCategory(Category.DESSERT);
         int mainCount = order.countByCategory(Category.MAIN);
         calculateEventDto.setDessertCount(dessertCount);
         calculateEventDto.setMainCount(mainCount);
 
-        if (calculateEventDto.getBeforeDiscountAmount() < 10000) {
+        if (calculateEventDto.getBeforeDiscountAmount() < MagicNumber.MIN_EVENT_ACTIVE_BENEFIT.getNumber()) {
             isEventActive = false;
         }
         calculateEventDto.setIsEventActive(isEventActive);
@@ -72,7 +73,9 @@ public class RestaurantController {
         Map<DiscountEvent, Integer> discountResult =
                 visitDate.getCalculatedDiscount(calculateEventDto);
         discountDetails = new DiscountDetails(discountResult);
+    }
 
+    private void allEventOutputHandler() {
         int giveawayPrice = discountDetails.findDiscountPriceByEvent(DiscountEvent.GIVEAWAY);
         outputView.writeGiveAwayMenu(giveawayPrice);
 
