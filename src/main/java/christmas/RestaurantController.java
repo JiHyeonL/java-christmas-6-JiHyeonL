@@ -4,7 +4,7 @@ import christmas.constant.*;
 import christmas.domain.Order;
 import christmas.domain.VisitDate;
 import christmas.dto.CalculateEventDto;
-import christmas.dto.DiscountDetails;
+import christmas.domain.DiscountDetails;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -18,7 +18,6 @@ public class RestaurantController {
     private Order order;
     private CalculateEventDto calculateEventDto;
     private DiscountDetails discountDetails;
-    private EventBadge eventBadge;
 
     public void runPlanner() {
         outputView.writeWelcome();
@@ -59,16 +58,16 @@ public class RestaurantController {
     }
 
     private void allEventOutputHandler() {
+        boolean isEventActive = true;
         int dessertCount = order.countByCategory(Category.DESSERT);
         int mainCount = order.countByCategory(Category.MAIN);
         calculateEventDto.setDessertCount(dessertCount);
         calculateEventDto.setMainCount(mainCount);
 
-        if (calculateEventDto.getBeforeDiscountAmount() >= 10000) {
-            Map<DiscountEvent, Integer> discountResult =
-                    visitDate.getCalculatedDiscount(calculateEventDto);
-            discountDetails = new DiscountDetails(discountResult);
+        if (calculateEventDto.getBeforeDiscountAmount() < 10000) {
+            isEventActive = false;
         }
+        calculateEventDto.setIsEventActive(isEventActive);
 
         Map<DiscountEvent, Integer> discountResult =
                 visitDate.getCalculatedDiscount(calculateEventDto);
@@ -86,7 +85,7 @@ public class RestaurantController {
         int benefitForExpectedPayment = discountDetails.calculateBenefitForExpectedPayment();
         outputView.writeExpectedPayment(calculateEventDto.getBeforeDiscountAmount(), benefitForExpectedPayment);
 
-        String badge = eventBadge.chooseBadgeNameByBenefit(totalBenefit);
+        String badge = EventBadge.chooseBadgeNameByBenefit(totalBenefit);
         outputView.writeEventBadge(badge);
     }
 
