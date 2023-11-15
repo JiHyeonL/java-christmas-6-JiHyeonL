@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class InputView {
+    private static final String ORDER_SEPARATOR = ",";
+
     public int readDate() {
         PlannerMessage.REQUEST_VISIT_DATE.printMessage();
         String rawDate = Console.readLine();
@@ -30,10 +32,10 @@ public class InputView {
 
     private List<String> parseStringToList(String rawOrder) {
         try {
-            if (rawOrder.endsWith(",")) {
+            if (rawOrder.endsWith(ORDER_SEPARATOR)) {
                 throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
             }
-            return Arrays.asList(rawOrder.split( ",") );
+            return Arrays.asList(rawOrder.split(ORDER_SEPARATOR) );
         } catch (NullPointerException e){
             throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
         }
