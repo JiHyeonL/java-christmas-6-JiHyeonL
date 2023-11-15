@@ -5,7 +5,6 @@ public enum EventBadge {
     TREE("트리", -10000),
     STAR("별", -5000);
 
-
     private final String name;
     private final int cost;
 
@@ -16,7 +15,7 @@ public enum EventBadge {
 
     public static String chooseBadgeNameByBenefit(int totalBenefit) {
         for (EventBadge badge : EventBadge.values()) {
-            if (totalBenefit < badge.cost) {
+            if (totalBenefit <= badge.cost) {
                 return badge.name;
             }
         }
