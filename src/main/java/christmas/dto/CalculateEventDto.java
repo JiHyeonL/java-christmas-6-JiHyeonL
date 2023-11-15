@@ -1,12 +1,11 @@
 package christmas.dto;
 
-import christmas.domain.VisitDate;
-
 public class CalculateEventDto {
     private int beforeDiscountAmount;
     private int date;
     private int dessertCount;
     private int mainCount;
+    private boolean isEventActive;
 
     public CalculateEventDto(int beforeDiscountAmount) {
         this.beforeDiscountAmount = beforeDiscountAmount;
@@ -24,6 +23,10 @@ public class CalculateEventDto {
         this.date = date;
     }
 
+    public void setIsEventActive(boolean isEventActive) {
+        this.isEventActive = isEventActive;
+    }
+
     public int getBeforeDiscountAmount() {
         return beforeDiscountAmount;
     }
@@ -38,5 +41,9 @@ public class CalculateEventDto {
 
     public int getMainCount() {
         return mainCount;
+    }
+
+    public boolean getIsEventActive() {
+        return isEventActive;
     }
 }
