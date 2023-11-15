@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class OrderExceptionWithMapFormat {
-    private Map<String, Integer> validOrder;
+    private final Map<String, Integer> validOrder;
 
     public OrderExceptionWithMapFormat(List<String> rawOrder) {
         Map<String, Integer> orderDetail = parseStringToMapWithCheckDuplicate(rawOrder);
@@ -59,9 +59,7 @@ public class OrderExceptionWithMapFormat {
     private int parseStringToInt(String rawCount) {
         try {
             return Integer.parseInt(rawCount);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
-        } catch (NullPointerException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
         }
     }
@@ -75,13 +73,13 @@ public class OrderExceptionWithMapFormat {
 
     private void checkInMenu(Map<String, Integer> orderDetail) {
         for (String dish : orderDetail.keySet()) {
-            if (Menu.isInMenu(dish) == false)
+            if (!Menu.isInMenu(dish))
                 throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
         }
     }
 
     private void checkOrderGreaterThanOne(Map<String, Integer> orderDetail) {
-        if (orderDetail.size() < 1) {
+        if (orderDetail.isEmpty()) {
             throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
         }
     }
@@ -106,7 +104,7 @@ public class OrderExceptionWithMapFormat {
             }
         }
 
-        if (onlyBeverage == true) {
+        if (onlyBeverage) {
             throw new IllegalArgumentException(ErrorMessage.ORDER.errorMessage());
         }
     }
